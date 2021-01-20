@@ -158,6 +158,9 @@ float compareString(int noOfFileNeedCheck, const string addRootFile){
         }
     }
     res -= 0.5 * missingWord;
+    if (res < 0){
+        res = 0.0;
+    }
     return res * 100.0 / root.size();
 }
 
