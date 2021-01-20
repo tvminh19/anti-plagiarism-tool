@@ -134,6 +134,7 @@ float compareString(int noOfFileNeedCheck, const string addRootFile){
     // float percentPerWord = 100.0 / n * 1.0;
     float res = 0.0;
 
+    int missingWord = 0;
     for (int i=0; i<another.size(); ++i){
         for (int j=0; j<root.size(); ++j){
             if (another[i].str == root[j].str){
@@ -142,7 +143,7 @@ float compareString(int noOfFileNeedCheck, const string addRootFile){
                     res += another[i].amount / root[j].amount;
                 }
                 else if (k > 0){
-                    int h = another[i].amount - k;
+                    int h = another[i].amount - 0.5 * k;
                     if (h > 0){
                         res += h / root[j].amount;
                     }
@@ -151,8 +152,12 @@ float compareString(int noOfFileNeedCheck, const string addRootFile){
                     res += 1;
                 }
             }
+            else if (j == root.size() - 1){
+                missingWord++;
+            }
         }
-    }    
+    }
+    res -= 0.5 * missingWord;
     return res * 100.0 / root.size();
 }
 
