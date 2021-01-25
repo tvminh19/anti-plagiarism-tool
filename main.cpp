@@ -133,8 +133,6 @@ float compareString(int noOfFileNeedCheck, const string addRootFile){
 
     // float percentPerWord = 100.0 / n * 1.0;
     float res = 0.0;
-
-    int missingWord = 0;
     for (int i=0; i<another.size(); ++i){
         for (int j=0; j<root.size(); ++j){
             if (another[i].str == root[j].str){
@@ -151,17 +149,29 @@ float compareString(int noOfFileNeedCheck, const string addRootFile){
                 else{
                     res += 1;
                 }
-            }
-            else if (j == root.size() - 1){
-                missingWord++;
+                break;
             }
         }
     }
-    res -= 0.5 * missingWord;
+    int sum1 = 0;
+    int sum2 = 0;
+    for (auto& i : another){
+        sum1 += i.amount;
+    }
+    for (auto& i : root){
+        sum2 += i.amount;
+    }
+    res -= 0.5 * abs(sum1 - sum2);
     if (res < 0){
         res = 0.0;
     }
     return res * 100.0 / root.size();
+}
+
+void display(vector<word> p){
+    for (int i=0; i<p.size(); ++i){
+        cout << p[i].str << " - " << p[i].amount << endl;
+    }
 }
 
 int main(){
